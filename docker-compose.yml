@@ -1,0 +1,35 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    container_name: ielts-tinder-api
+    ports:
+      - "8080:8080"
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://db:5432/IeltsTinder
+      - SPRING_DATASOURCE_USERNAME=postgres
+      - SPRING_DATASOURCE_PASSWORD=Vuong123
+    stdin_open: true
+    tty: true
+    depends_on:
+      - db
+
+  db:
+    image: postgres:latest
+    container_name: ielts-tinder-db
+    ports:
+      - "5432:5432"
+    expose:
+      - "5431"
+    environment:
+      - POSTGRES_DB=IeltsTinder
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=Vuong123
+#    volumes:
+#      - dbdata:/var/lib/postgresql/data
+#
+#volumes:
+#  dbdata:
